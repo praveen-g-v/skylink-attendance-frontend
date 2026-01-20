@@ -17,7 +17,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { Employee, Department } from './employee.model';
-import { EmployeeService } from '../services/EmployeeService';
+import { EmployeeService } from '../../services/EmployeeService';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 

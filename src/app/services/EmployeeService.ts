@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
-import { Employee } from '../employees/employee.model';
+import { Employee } from '../pages/employees/employee.model';
 
 import { PaginatedResponse, ApiResponse } from './response.model';
 
