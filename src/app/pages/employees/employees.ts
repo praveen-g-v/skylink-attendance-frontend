@@ -20,11 +20,13 @@ import { Employee, Department } from './employee.model';
 import { EmployeeService } from '../../services/EmployeeService';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
   selector: 'app-employees',
   imports: [
     CommonModule,
+    ProgressBarModule,
     ButtonModule,
     ConfirmDialogModule,
     DialogModule,
@@ -55,6 +57,11 @@ export class Employees implements OnInit {
   employeeDialog = false;
   employee!: Employee;
   submitted = false;
+
+  statuses!: any[];
+  loading: boolean = true;
+  activityValues: number[] = [0, 100];
+  searchValue: string | undefined;
 
   constructor(
     private employeeService: EmployeeService,
@@ -186,7 +193,39 @@ export class Employees implements OnInit {
   // ================= EXPORT =================
 
   exportCSV(): void {
-    this.dt.exportCSV();
+    if (!this.employees || !this.employees.length) return;
+
+    const headers = [
+      'Employee ID',
+      'Name',
+      'Department',
+      'Designation',
+      'Contact',
+      'Email',
+      'Status',
+    ];
+
+    const rows = this.employees.map((e) => [
+      e.employeeId,
+      e.fullName,
+      e.department,
+      e.destination,
+      e.contactNo,
+      e.emailId,
+      e.resigned ? 'Resigned' : 'Active',
+    ]);
+
+    const csv = [headers, ...rows].map((r) => r.map((v) => `"${v ?? ''}"`).join(',')).join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'employees.csv';
+    link.click();
+
+    URL.revokeObjectURL(url);
   }
 
   // ================= TOAST HELPERS =================
@@ -205,5 +244,10 @@ export class Employees implements OnInit {
       summary: 'Error',
       detail,
     });
+  }
+
+  clear(dt: Table) {
+    this.searchValue = '';
+    dt.reset();
   }
 }

@@ -41,6 +41,7 @@
     dataKey="id"
     [rowHover]="true"
     [globalFilterFields]="['employeeId', 'fullName', 'department', 'emailId']"
+    [rowsPerPageOptions]="[10, 25, 50, 100, 200, 500]"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} employees"
     [showCurrentPageReport]="true"
   >
@@ -67,12 +68,27 @@
           <p-tableHeaderCheckbox />
         </th>
         <th>Employee ID</th>
-        <th pSortableColumn="fullName">Name <p-sortIcon field="fullName" /></th>
-        <th>Department</th>
-        <th>Designation</th>
-        <th>Contact</th>
-        <th>Email</th>
-        <th>Status</th>
+        <th pSortableColumn="fullName">
+          Name <p-sortIcon field="fullName" />
+          <p-columnFilter type="text" field="fullName" display="menu" class="ml-auto" />
+        </th>
+        <th pSortableColumn="department">
+          Department <p-sortIcon field="department" />
+          <p-columnFilter type="text" field="department" display="menu" class="ml-auto" />
+        </th>
+        <th pSortableColumn="destination">
+          Designation <p-sortIcon field="destination" />
+          <p-columnFilter type="text" field="destination" display="menu" class="ml-auto" />
+        </th>
+        <th pSortableColumn="contactNo">
+          Contact <p-sortIcon field="contactNo" />
+          <p-columnFilter type="text" field="contactNo" display="menu" class="ml-auto" />
+        </th>
+        <th pSortableColumn="emailId">
+          Email <p-sortIcon field="emailId" />
+          <p-columnFilter type="text" field="emailId" display="menu" class="ml-auto" />
+        </th>
+        <th pSortableColumn="resigned">Status <p-sortIcon field="resigned" /></th>
         <th style="width: 8rem"></th>
       </tr>
     </ng-template>
