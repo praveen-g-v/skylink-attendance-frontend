@@ -10,7 +10,7 @@ import { PaginatedResponse, ApiResponse } from './response.model';
   providedIn: 'root',
 })
 export class EmployeeService {
-  private apiBaseUrl = 'http://localhost:3000/api';
+  private apiBaseUrl = 'http://localhost:8080/api/public';
   private employeesUrl = `${this.apiBaseUrl}/employees`;
 
   private httpOptions = {
@@ -25,24 +25,30 @@ export class EmployeeService {
   // ============ EMPLOYEE CRUD OPERATIONS ============
 
   // Get all employees with optional pagination and filters
-  getEmployees(
-    page: number = 1,
-    limit: number = 10,
-    filters?: any,
-  ): Observable<PaginatedResponse<Employee>> {
-    let params = new HttpParams().set('page', page.toString()).set('limit', limit.toString());
+  // getEmployees(
+  //   page: number = 1,
+  //   limit: number = 10,
+  //   filters?: any,
+  // ): Observable<PaginatedResponse<Employee>> {
+  //   let params = new HttpParams().set('page', page.toString()).set('limit', limit.toString());
 
-    if (filters) {
-      Object.keys(filters).forEach((key) => {
-        if (filters[key] !== undefined && filters[key] !== null) {
-          params = params.set(key, filters[key]);
-        }
-      });
-    }
+  //   if (filters) {
+  //     Object.keys(filters).forEach((key) => {
+  //       if (filters[key] !== undefined && filters[key] !== null) {
+  //         params = params.set(key, filters[key]);
+  //       }
+  //     });
+  //   }
 
+  //   return this.http
+  //     .get<PaginatedResponse<Employee>>(this.employeesUrl, { params, ...this.httpOptions })
+  //     .pipe(catchError(this.handleError<PaginatedResponse<Employee>>('getEmployees')));
+  // }
+
+  getEmployees(): Observable<ApiResponse<Employee[]>> {
     return this.http
-      .get<PaginatedResponse<Employee>>(this.employeesUrl, { params, ...this.httpOptions })
-      .pipe(catchError(this.handleError<PaginatedResponse<Employee>>('getEmployees')));
+      .get<ApiResponse<Employee[]>>(this.employeesUrl, this.httpOptions)
+      .pipe(catchError(this.handleError<ApiResponse<Employee[]>>('getEmployees')));
   }
 
   // Get employee by ID

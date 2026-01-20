@@ -19,6 +19,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { Employee, Department } from './employee.model';
 import { EmployeeService } from '../services/EmployeeService';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-employees',
@@ -59,6 +60,7 @@ export class Employees implements OnInit {
     private employeeService: EmployeeService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   // ================= INIT =================
@@ -70,9 +72,10 @@ export class Employees implements OnInit {
   // ================= LOAD =================
 
   loadEmployees(): void {
-    this.employeeService.getEmployees(1, 50).subscribe({
+    this.employeeService.getEmployees().subscribe({
       next: (res) => {
         this.employees = res.data;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.showError(err.message);
