@@ -10,8 +10,8 @@ import { PaginatedResponse, ApiResponse } from './response.model';
   providedIn: 'root',
 })
 export class EmployeeService {
-  private apiBaseUrl = 'http://localhost:8080/api/public';
-  private employeesUrl = `${this.apiBaseUrl}/employees`;
+  private apiBaseUrl = 'http://localhost:8080/api/public/employee';
+  private employeesUrl = `${this.apiBaseUrl}/all`;
 
   private httpOptions = {
     headers: new HttpHeaders({
